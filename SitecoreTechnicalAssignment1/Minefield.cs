@@ -14,6 +14,14 @@ namespace SitecoreTechnicalAssignment1
             { ' ', 'X', 'X', ' ', 'X' },
             { 'X', ' ', 'X', ' ', 'X' },
             { ' ', 'X', ' ', 'X', 'X' }
+        /* 2nd example can try
+        {' ', 'X', 'X', ' ', ' '},
+        {'X', 'X', ' ', 'X', ' '},
+        {' ', 'X', 'X', ' ', 'X'},
+        {'X', ' ', 'X', ' ', 'X'},
+        {' ', 'X', ' ', 'X', 'X'}
+         */
+
         };
 
             static void Main(string[] args)
