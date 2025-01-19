@@ -5,18 +5,18 @@ namespace Minefield
     class MinefieldNavigation
     {
         static char[,] minefield = {
-            { ' ', ' ', 'X', 'X', ' ' },
-            { 'X', 'X', ' ', 'X', ' ' },
-            { ' ', 'X', 'X', ' ', 'X' },
-            { 'X', ' ', 'X', ' ', 'X' },
-            { ' ', 'X', ' ', 'X', 'X' }
             /* 2nd example can try
-            { ' ', 'X', 'X', ' ', ' ' },
-            { 'X', 'X', ' ', 'X', ' ' },
-            { ' ', 'X', 'X', ' ', 'X' },
-            { 'X', ' ', 'X', ' ', 'X' },
-            { ' ', 'X', ' ', 'X', 'X' }
-            */
+            {' ', 'X', 'X', ' ', ' '},
+            {'X', 'X', ' ', 'X', ' '},
+            {' ', 'X', 'X', ' ', 'X'},
+            {'X', ' ', 'X', ' ', 'X'},
+            {' ', 'X', ' ', 'X', 'X'}
+             */
+            {' ', ' ', 'X', 'X', ' '},
+            {'X', 'X', ' ', 'X', ' '},
+            {' ', 'X', 'X', ' ', 'X'},
+            {'X', ' ', 'X', ' ', 'X'},
+            {' ', 'X', ' ', 'X', 'X'}
         };
 
         static void Main(string[] args)
@@ -28,13 +28,13 @@ namespace Minefield
             // Step 1: Find a valid start for Totoshka in the first row
             for (int col = 0; col < minefield.GetLength(1); col++)
             {
-                if (minefield[0, col] == ' ')  // Check the first row for a valid start point
+                if (minefield[0, col] == ' ') // Check the first row for a valid start point
                 {
                     if (IsValidMove(1, col) || IsValidMove(1, col - 1) || IsValidMove(1, col + 1))
                     {
                         totoRow = 0;
                         totoCol = col;
-                        minefield[totoRow, totoCol] = '√';  // Mark the initial position of Totoshka
+                        minefield[totoRow, totoCol] = '√'; // Mark the initial position of Totoshka
                         Console.WriteLine("Step 1: Totoshka at (" + totoRow + ", " + totoCol + ")");
                         break;
                     }
@@ -42,8 +42,8 @@ namespace Minefield
             }
 
             // Simulate the movement of Totoshka and Ally
-            int stepCount = 2;  // Start counting from step 2
-            int lastTotoRow = totoRow, lastTotoCol = totoCol;  // To track the last position of Totoshka
+            int stepCount = 2; // Start counting from step 2
+            int lastTotoRow = totoRow, lastTotoCol = totoCol; // To track the last position of Totoshka
 
             while (totoRow < minefield.GetLength(0))
             {
@@ -53,24 +53,23 @@ namespace Minefield
                 // Look ahead and find the best move (consider 1 row ahead)
                 for (int colOffset = -1; colOffset <= 1; colOffset++)
                 {
-                    int newRow = totoRow + 1;  // Move one row ahead
+                    int newRow = totoRow + 1; // Move one row ahead
                     int newCol = totoCol + colOffset;
-                    int prevTotoCol = 0, prevTotoRow = 0;
 
                     // Ensure the new position is within bounds and is safe (not a bomb)
                     if (newCol >= 0 && newCol < minefield.GetLength(1) && newRow < minefield.GetLength(0) && minefield[newRow, newCol] == ' ')
                     {
                         // Move Totoshka
-                        prevTotoRow = totoRow;
-                        prevTotoCol = totoCol;
+                        lastTotoRow = totoRow;
+                        lastTotoCol = totoCol;
                         totoRow = newRow;
                         totoCol = newCol;
                         minefield[totoRow, totoCol] = '√'; // Mark the new position as part of the path
                         moved = true;
 
-                        // Ally moves to the previous position of Totoshka
-                        allyRow = prevTotoRow;
-                        allyCol = prevTotoCol;
+                        // Ally move to the previous position of Totoshka
+                        allyRow = lastTotoRow;
+                        allyCol = lastTotoCol;
 
                         break;
                     }
